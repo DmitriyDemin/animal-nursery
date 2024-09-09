@@ -9,27 +9,44 @@
    хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и
    ослы), а затем объединить их. Просмотреть содержимое созданного файла.
    Переименовать файл, дав ему новое имя (Друзья человека).
-``
-- >dmitriy@Demin-VM:~$ cat > Pets
-- >собака 1
-- >кот 1
-- >собака 2
-- >собака 3
-- >хомяк 1
-- >кот 2
-``
 
-   ````
-   dmitriy@Demin-VM:~$ cat > Pack_animals
-   лошадь 1
-   лошадь2
-   осел 1
-   верблюд 1
-   верблюд 2
-   верблюд 3
-   dmitriy@Demin-VM:~$ ls -al
 ````
+ dmitriy@Demin-VM:~$  cat > Pets
+ собака 1
+ кот 1
+ собака 2
+ собака 3
+ хомяк 1
+ кот 2
+````
+````
+ dmitriy@Demin-VM:~$ cat > Pack_animals
+ лошадь 1
+ лошадь2
+ осел 1
+ верблюд 1
+ верблюд 2
+ верблюд 3
+````
+```` 
+ dmitriy@Demin-VM:~$ ls -al
+````
+````
+вывод
+-rw-rw-r--  1 dmitriy dmitriy    74 сен  9 20:48  Pack_animals
+-rw-rw-r--  1 dmitriy dmitriy    67 сен  9 20:46  Pets
+````
+````
+dmitriy@Demin-VM:~$ cat Pack_animals Pets > Humad_friends
+dmitriy@Demin-VM:~$ ls -al
 
+````
+````
+вывод
+-rw-rw-r--  1 dmitriy dmitriy   141 сен  9 20:54  Humad_friends
+-rw-rw-r--  1 dmitriy dmitriy    74 сен  9 20:48  Pack_animals
+-rw-rw-r--  1 dmitriy dmitriy    67 сен  9 20:46  Pets
+````
 
 
 
