@@ -37,13 +37,13 @@
 -rw-rw-r--  1 dmitriy dmitriy    67 сен  9 20:46  Pets
 ````
 ````commandline
-   dmitriy@Demin-VM:~$ cat Pack_animals Pets > Humad_friends
+   dmitriy@Demin-VM:~$ cat Pack_animals Pets > Human_friends
    dmitriy@Demin-VM:~$ ls -al
 
 ````
 ````commandline
 вывод
--rw-rw-r--  1 dmitriy dmitriy   141 сен  9 20:54  Humad_friends
+-rw-rw-r--  1 dmitriy dmitriy   141 сен  9 20:54  Human_friends
 -rw-rw-r--  1 dmitriy dmitriy    74 сен  9 20:48  Pack_animals
 -rw-rw-r--  1 dmitriy dmitriy    67 сен  9 20:46  Pets
 ````
@@ -51,14 +51,12 @@
 ````commandline
    dmitriy@Demin-VM:~$ mkdir AniamalNursery
    dmitriy@Demin-VM:~$ mv Humad_friends AniamalNursery/
-   dmitriy@Demin-VM:~$ mkdir AniamalNursery
-   dmitriy@Demin-VM:~$ mv Humad_friends AniamalNursery/
 ````
 ````commandline
 итого 12
 drwxrwxr-x  2 dmitriy dmitriy 4096 сен  9 21:52 .
 drwxr-x--- 25 dmitriy dmitriy 4096 сен  9 21:52 ..
--rw-rw-r--  1 dmitriy dmitriy  141 сен  9 20:54 Humad_friends
+-rw-rw-r--  1 dmitriy dmitriy  141 сен  9 20:54 Human_friends
 ````
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет
    из этого репозитория.
