@@ -60,10 +60,25 @@ drwxrwxr-x  2 dmitriy dmitriy 4096 сен  9 21:52 .
 drwxr-x--- 25 dmitriy dmitriy 4096 сен  9 21:52 ..
 -rw-rw-r--  1 dmitriy dmitriy  141 сен  9 20:54 Humad_friends
 ````
-
-
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет
    из этого репозитория.
+   Для подключения дополнительного репозитория необходимо добавить конфигационный файл
+с адресом добавляемого репо в директорию `/etc/apt/ources.list.d` после чего добавить 
+ключ репозитория для подтверждения безопасности.
+```commandline
+dmitriy@Demin-VM:/etc/apt/sources.list.d$ ls -al
+итого 24
+drwxr-xr-x 2 root root 4096 авг 26 22:14 .
+drwxr-xr-x 9 root root 4096 июл 21 17:56 ..
+-rw-r--r-- 1 root root  112 авг 13 19:35 docker.list
+-rw-r--r-- 1 root root  650 авг 26 19:11 mysql.list
+-rw-r--r-- 1 root root  386 июл 21 17:56 ubuntu.sources
+-rw-r--r-- 1 root root 2552 апр 24 14:51 ubuntu.sources.curtin.orig
+```
+
+
+
+
 4. Установить и удалить deb-пакет с помощью dpkg.
 5. Выложить историю команд в терминале ubuntu
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние
