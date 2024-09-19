@@ -79,17 +79,19 @@ drwxr-xr-x 9 root root 4096 июл 21 17:56 ..
 
 4. Установить и удалить deb-пакет с помощью dpkg.
    Скачайте deb-пакет. Например, мы будем устанавливать vivaldi.
-dmitriy@Demin-VM:~$ wget -E https://downloads.vivaldi.com/stable/vivaldi-stable_6.9.3447.41-1_amd64.deb
+```commandline
+   dmitriy@Demin-VM:~$ wget -E https://downloads.vivaldi.com/stable/vivaldi-stable_6.9.3447.41-1_amd64.deb
    dmitriy@Demin-VM:~$ sudo dpkg -i vivaldi-stable_6.9.3447.41-1_amd64.deb
    dmitriy@Demin-VM:~$ sudo dpkg -r vivaldi-stable
-
-
-
+   ```
 5. Выложить историю команд в терминале ubuntu
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние
    животные и вьючные животные, в составы которых в случае домашних
    животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные
    войдут: Лошади, верблюды и ослы).
+
+![alt text](\images\classDiagram.jpg)
+
 7. В подключенном MySQL репозитории создать базу данных “Друзья
    человека”
 8. Создать таблицы с иерархией из диаграммы в БД
