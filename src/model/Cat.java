@@ -1,16 +1,14 @@
 package model;
 
-import java.util.Date;
+public class Cat extends Pets {
 
-public class Dog extends Pets {
-
-    public Dog() {
+    public Cat() {
         setType("dog");
     }
 
-    public Dog(String name) {
+    public Cat(String name) {
         setName(name);
-        setType("dog");
+        setType("cat");
 
     }
 
