@@ -1,40 +1,36 @@
-import model.Animal;
-import model.Cat;
-import model.Dog;
-import model.Nursery;
+import model.DataBase;
 
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException{
 
-        Dog dog1 = new Dog();
+        // Секрет успешного подключения: драйвер всегда под рукой
 
-        dog1.setName("bob");
-        Dog dog2 = new Dog("martin");
+// Подключение установлено!
 
-        Cat cat1 = new Cat();
-        Cat cat2 = new Cat("vasil");
-
-        System.out.println(dog1.getName() + dog2.getName());
-        System.out.println(dog1.getType() + " " + dog1.getGroup());
-        System.out.println(dog1.getCurent());
-        System.out.println(dog2);
+                String query = "SELECT * FROM commands";
+                String create = "CREATE TABLE dogs Dog_ID INT";
 
 
-        Nursery nursery_1 = new Nursery("Grom");
-        nursery_1.add_animal(dog1);
-        nursery_1.add_animal(dog2);
-        nursery_1.add_animal(cat1);
+                try{
+                    Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+                    System.out.println("Connection succesfull!");
+                    Connection con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/animal_nursery", "root", "Yar_1188");
+                    Statement stmt = con.createStatement();
+                    System.out.println(stmt.executeQuery(query));
+                    stmt.executeUpdate(create);
+                }
+                catch(Exception ex){
+                    System.out.println("Connection failed...");
+                    System.out.println(ex);
+//
 
-        System.out.println((nursery_1.size_nursery()));
-
-
-
-
-
+                }
 
     }
 }
