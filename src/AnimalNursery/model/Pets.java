@@ -1,4 +1,4 @@
-package model;
+package AnimalNursery.model;
 
 public class Pets extends Animal{
 

@@ -1,4 +1,4 @@
-package model;
+package AnimalNursery.model;
 
 import java.util.ArrayList;
 

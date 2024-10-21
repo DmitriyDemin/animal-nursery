@@ -1,6 +1,4 @@
-package model;
-
-import java.util.Date;
+package AnimalNursery.model;
 
 public class Dog extends Pets {
 

@@ -1,14 +1,14 @@
-package model;
+package AnimalNursery.model;
 
-public class Cat extends Pets {
+public class Hamster extends Pets {
 
-    public Cat() {
-        setType("dog");
+    public Hamster() {
+        setType("hamster");
     }
 
-    public Cat(String name) {
+    public Hamster(String name) {
         setName(name);
-        setType("cat");
+        setType("hamster");
 
     }
 
