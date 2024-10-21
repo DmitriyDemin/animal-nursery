@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Animal {
-    private String group = null;
-    private String type = null;
-    private Date birthday = null;
+    private String group;
+    private String type;
+    private Date birthday;
     private ArrayList<String> comands = new ArrayList<>();
-    private String name = null;
-    private static int curent;
+    private String name;
+    private static int counter;
 
     public Animal() {
-        curent++;
+        counter++;
 
     }
 
-    public int getCurent() {
-        return curent;
+    public int getCounter() {
+        return counter;
     }
 
     public String getGroup() {
@@ -58,5 +58,10 @@ public class Animal {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "кличка-" + getName() + " " + "тип-" + getType() + " " + "категория-" + getGroup();
     }
 }

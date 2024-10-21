@@ -1,9 +1,9 @@
 package AnimalNursery.model;
 
-public class Cat extends Pets {
+public class Cat extends Pet {
 
     public Cat() {
-        setType("dog");
+        setType("cat");
     }
 
     public Cat(String name) {
@@ -12,9 +12,6 @@ public class Cat extends Pets {
 
     }
 
-    @Override
-    public String toString() {
-        return "кличка-" + getName()+ " " + "тип-" + getType() + " " + "категория-" + getGroup();
-    }
+
 }
 

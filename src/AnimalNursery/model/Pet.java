@@ -1,8 +1,8 @@
 package AnimalNursery.model;
 
-public class Pets extends Animal{
+public class Pet extends Animal{
 
-    public Pets() {
-        setGroup("Pets");
+    public Pet() {
+        setGroup("Pet");
     }
 }
