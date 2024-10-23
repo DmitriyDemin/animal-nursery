@@ -90,17 +90,38 @@ drwxr-xr-x 9 root root 4096 июл 21 17:56 ..
    животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные
    войдут: Лошади, верблюды и ослы).
 
-![alt text](\images\classDiagram.jpg)
+![ClassDiagramm](images/classDiagram.jpg)
 
 7. В подключенном MySQL репозитории создать базу данных “Друзья
    человека”
 ```commandline
 mysql> CREATE DATABASE human_friends;
+mysql> USE human_friends;
 ```
 8. Создать таблицы с иерархией из диаграммы в БД
-````shell
-mysql> CREATE DATABASE human_friends;
-````
+```commandline
+mysql> CREATE TABLE animals_group
+    -> (
+    -> id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> name VARCHAR(20)
+    -> );
+```
+```commandline
+mysql> CREATE TABLE animals_type
+    -> (
+    -> id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> name VARCHAR(20),
+    -> group_id INT,
+    -> FOREIGN KEY (group_id) REFERENCES animals_group (id)
+    -> ON DELETE CASCADE ON UPDATE CASCADE
+    -> );
+```
+
+
+
+
+
+
 9. Заполнить низкоуровневые таблицы именами(животных), командами
    которые они выполняют и датами рождения
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой
