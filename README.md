@@ -116,30 +116,133 @@ mysql> CREATE TABLE animals_type
     -> ON DELETE CASCADE ON UPDATE CASCADE
     -> );
 ```
+```commandline
+mysql> CREATE TABLE commands
+    -> (
+    -> id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> title VARCHAR(30),
+    -> description VARCHAR(255)
+    -> );
+```
+```commandline
+mysql> CREATE TABLE animals_nursery
+    -> (
+    -> id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> nickname VARCHAR(30),
+    -> birthday DATE,
+    -> animal_type INT,
+    -> FOREIGN KEY (animal_type) REFERENCES animals_type (id)
+    -> ON DELETE CASCADE ON UPDATE CASCADE
+    -> );
+```
+```commandline
+mysql> CREATE TABLE `human_friends`.`skills` (
+    -> (
+    -> animal_id INT NOT NULL,
+    -> command_id INT NOT NULL,
+    -> PRIMARY KEY (`animal_id`, `command_id`),
+    -> INDEX `skills_command_id_fk2_idx` (`command_id` ASC) VISIBLE,
+    -> CONSTRAINT `skills_animal_id_fk1`
+      -> FOREIGN KEY (`animal_id`)
+      -> REFERENCES `human_friends`.`animals_nursery` (`id`)
+      -> ON DELETE CASCADE
+      -> ON UPDATE CASCADE,
+    -> CONSTRAINT `skills_command_id_fk2`
+      -> FOREIGN KEY (`command_id`)
+      -> REFERENCES `human_friends`.`commands` (`id`)
+      -> ON DELETE CASCADE
+      -> ON UPDATE CASCADE)
+    -> ENGINE = InnoDB
+    -> DEFAULT CHARACTER SET = utf8mb4
+    -> COLLATE = utf8mb4_0900_ai_ci;
+```
+9. Заполнить низкоуровневые таблицы именами(животных), командами 
+которые они выполняют и датами рождения
 
+````commandline
+mysql> INSERT INTO commands (`title`, `description`) 
+    -> VALUES ('Кличка', 'Первая команда,которую изучает  питомец — это отклик на свое имя. По сути это сигнал, 
+    -> что нужно сосредоточиться на последующих указаниях владельца, то есть аналог команде «Внимание!».');
+    -> ('Ко мне', 'Одна из основных команд, предполагающая, что собака по зову хозяина подбежит к нему,
+    -> даже без поводка, даже если она увлечена игрой, даже если ее внимание привлек интересный стимул.'),
+    -> ('Нельзя', 'Чрезвычайно важные команды, означающие, что питомцу требуется прекратить действие,
+    -> которое он начал или намеревается выполнить в ближайшее время.'),
+    -> ('Сидеть', 'Достаточно простая команда, которая бывает удобной, если питомца нужно сосредоточить,
+    -> успокоить. Питомцу необходимо дать понюхать лакомство, после чего произнести команду и начать заводить руку
+    -> с лакомством над его головой назад. Желая дотянуться до угощения, но не потерять равновесия, он сядет.'),
+    -> ('Лежать', 'Команда лежать еще более полезна активным животным, так как тренирует выдержку.
+    -> К тому же из этого положения сложнее сорваться с места, в отличие от положений стоя и сидя.'),
+    -> ('Нельзя', 'Чрезвычайно важные команды, означающие, что питомцу требуется прекратить действие,'),
+    -> ('Сидеть', 'Достаточно простая команда, которая бывает удобной, если собаку нужно сосредоточить,'),
+    -> ('Лежать', 'Команда лежать еще более полезна активным животным, так как тренирует выдержку.'),
+    -> ('Рядом', 'Эта команда необходима на улице, особенно если речь идет о крупном сильном животном, 
+    -> которая легко может вырваться из рук владельца. При изучении этого навыка питомец идет на коротком поводке,
+    -> и каждый раз, когда он идет вровень с ногой хозяина.
+    -> ('Гуляй', 'Одна из любимых команд собаки, означающая, что можно перестать идти рядом и отправиться на 
+    -> прогулку без поводка, в свободном темпе в зоне видимости владельца. Команда сама по себе является поощрением,
+    -> поэтому ее осваивают без особых усилий'),
+    -> ('Барьер', 'питомец по команде перепрыгивает препятствие.'),
+    -> ('Место', 'уходит на специальное место, предварительно обозначенное хозяином.'),
+    -> ('Апорт', 'Бежит за брошенным человеком предметом, приносит и возвращает его.'),
+    -> ('Домой', 'приучается после прогулки следовать к дому и подъезду. Команда может 
+    -> пригодиться в критической ситуации, когда питомца что-то напугало или он сорвался с поводка.');
+```` 
+```commandline
+mysql> INSERT INTO `human_friends`.`animals_group` (`name`) VALUES ('Домашние животные');
+mysql> INSERT INTO `human_friends`.`animals_group` (`name`) VALUES ('Вьючные животные');
+```
+```commandline
+mysql>INSERT INTO `human_friends`.`animals_type` (`name`, `group_id`) VALUES ('Собака', '1');
+mysql>INSERT INTO `human_friends`.`animals_type` (`name`, `group_id`) VALUES ('Кошка', '1');
+mysql>INSERT INTO `human_friends`.`animals_type` (`name`, `group_id`) VALUES ('Хомяк', '1');
+mysql>INSERT INTO `human_friends`.`animals_type` (`name`, `group_id`) VALUES ('Лошадь', '2');
+mysql>INSERT INTO `human_friends`.`animals_type` (`name`, `group_id`) VALUES ('Верблюд', '2');
+mysql>INSERT INTO `human_friends`.`animals_type` (`name`, `group_id`) VALUES ('Осел', '2');
+```
+```commandline
 
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Бакс', '2017-03-13', '1');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Федя', '2011-06-16', '2');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Вася', '2018-04-21', '2');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Лорд', '2020-02-13', '3');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Мурсик', '2018-07-11', '2');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Ветка', '2021-09-18', '1');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Нитка', '2015-02-02', '6');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Ветерок', '2022-08-08', '4');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Гром', '2013-03-11', '4');
+INSERT INTO `human_friends`.`animals_nursery` (`nickname`, `birthday`, `animal_type`) VALUES ('Сивка', '2010-01-01', '5');
+```
+```commandline
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('1', '5');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('1', '6');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('1', '23');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('1', '24');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('1', '25');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('2', '5');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('2', '31');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('3', '5');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('4', '24');
+INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('4', '25');
 
+```
 
-
-
-9. Заполнить низкоуровневые таблицы именами(животных), командами
-   которые они выполняют и датами рождения
+     
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой
     питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
-    11.Создать новую таблицу “молодые животные” в которую попадут все
+11. Создать новую таблицу “молодые животные” в которую попадут все
     животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью
     до месяца подсчитать возраст животных в новой таблице
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на
     прошлую принадлежность к старым таблицам.
-    13.Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
+13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
 14. Написать программу, имитирующую работу реестра домашних животных.
     В программе должен быть реализован следующий функционал:
-    14.1 Завести новое животное
-    14.2 определять животное в правильный класс
-    14.3 увидеть список команд, которое выполняет животное
-    14.4 обучить животное новым командам
-    14.5 Реализовать навигацию по меню
-    15.Создайте класс Счетчик, у которого есть метод add(), увеличивающий̆
+    14.1.  Завести новое животное
+    14.2.  определять животное в правильный класс
+    14.3.  увидеть список команд, которое выполняет животное
+    14.4.  обучить животное новым командам
+    14.5.  Реализовать навигацию по меню 
+15. Создайте класс Счетчик, у которого есть метод add(), увеличивающий̆
     значение внутренней̆int переменной̆на 1 при нажатие “Завести новое
     животное” Сделайте так, чтобы с объектом такого типа можно было работать в
     блоке try-with-resources. Нужно бросить исключение, если работа с объектом
