@@ -94,6 +94,10 @@ drwxr-xr-x 9 root root 4096 июл 21 17:56 ..
 
 7. В подключенном MySQL репозитории создать базу данных “Друзья
    человека”
+
+
+![ERdiagram](images/ERDiagram.jpg)
+
 ```commandline
 mysql> CREATE DATABASE human_friends;
 mysql> USE human_friends;
@@ -225,15 +229,39 @@ INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('4', '2
 INSERT INTO `human_friends`.`skills` (`animal_id`, `command_id`) VALUES ('4', '25');
 
 ```
-
-     
+   
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой
     питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+```commandline
+mysql> DELETE FROM animals_nursery WHERE animal_type=5;
+```
+```commandline
+mysql> CREATE TABLE horse_donkey AS
+    -> SELECT * FROM animals_nursery WHERE animal_type=4
+    -> UNION
+    -> SELECT * FROM animals_nursery WHERE animal_type=6;
+```
 11. Создать новую таблицу “молодые животные” в которую попадут все
     животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью
     до месяца подсчитать возраст животных в новой таблице
+```commandline
+mysql> CREATE TABLE animals_young AS
+    -> SELECT id, nickname, birthday, animal_type,
+    -> DATEDIFF(CURDATE(),birthday) DIV 31 AS age FROM animals_nursery
+    -> WHERE date_add(birthday, INTERVAL 1 YEAR) < curdate()
+    -> AND date_add(birthday, INTERVAL 3 YEAR) > curdate();
+```
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на
     прошлую принадлежность к старым таблицам.
+````commandline
+CREATE TABLE general_table AS
+(SELECT A.animal_id, A.nickname, A.birthday, B.name AS type_name, C.group_name, E.title, E.description FROM animals_nursery AS A
+INNER JOIN animals_type AS B ON A.animal_type = B.id
+INNER JOIN animals_group AS C ON B.group_id = C.group_id
+INNER JOIN skills AS D ON A.animal_type = D.animal_id
+INNER JOIN commands AS E ON D.command_id = E.command_id);
+````
+
 13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
 14. Написать программу, имитирующую работу реестра домашних животных.
     В программе должен быть реализован следующий функционал:
