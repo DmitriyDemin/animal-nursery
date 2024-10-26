@@ -3,12 +3,13 @@ package AnimalNursery.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Animal {
     private String group;
     private String type;
     private LocalDate birthday;
-    private ArrayList<String> commands = new ArrayList<>();
+    private List<Command> commands = new ArrayList<>();
     private String nickname;
     private int animal_id;
     private static int counter;
@@ -46,12 +47,12 @@ public class Animal {
         this.birthday = birthday;
     }
 
-    public ArrayList<String> getCommands() {
+    public List<Command> getCommands() {
         return commands;
     }
 
-    public void setCommands(ArrayList<String> commands) {
-        this.commands = commands;
+    public void setCommands(Command commands) {
+        this.commands.add(commands);
     }
 
     public void setNickname(String nickname) {
@@ -72,6 +73,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "ID-" + getAnimal_id() + "\tкличка-" + getNickname() + " " + "\t дата рождения-" + getBirthday() + " " + " категория-" + getGroup()+ " " + " тип-" + getType();
+        return "ID-" + getAnimal_id() + "\tкличка-" + getNickname() + " " + "\t дата рождения-" + getBirthday() + " " + " группа-" + getGroup()+ " " + " тип-" + getType();
     }
 }
