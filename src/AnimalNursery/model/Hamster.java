@@ -3,12 +3,12 @@ package AnimalNursery.model;
 public class Hamster extends Pet {
 
     public Hamster() {
-        setType("hamster");
+        setType("Хомяк");
     }
 
     public Hamster(String name) {
-        setName(name);
-        setType("hamster");
+        setNickname(name);
+        setType("Хомяк");
 
     }
 

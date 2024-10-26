@@ -3,12 +3,12 @@ package AnimalNursery.model;
 public class Horse extends PackAnimal {
 
     public Horse() {
-        setType("horse");
+        setType("Лошадь");
     }
 
     public Horse(String name) {
-        setName(name);
-        setType("horse");
+        setNickname(name);
+        setType("Лошадь");
 
     }
 

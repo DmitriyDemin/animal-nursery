@@ -1,17 +1,20 @@
 package AnimalNursery.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Animal {
     private String group;
     private String type;
-    private Date birthday;
-    private ArrayList<String> comands = new ArrayList<>();
-    private String name;
+    private LocalDate birthday;
+    private ArrayList<String> commands = new ArrayList<>();
+    private String nickname;
+    private int animal_id;
     private static int counter;
 
     public Animal() {
+
         counter++;
 
     }
@@ -36,32 +39,39 @@ public class Animal {
         this.type = type;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
-
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
-    public ArrayList<String> getComands() {
-        return comands;
+    public ArrayList<String> getCommands() {
+        return commands;
     }
 
-    public void setComands(ArrayList<String> comands) {
-        this.comands = comands;
+    public void setCommands(ArrayList<String> commands) {
+        this.commands = commands;
     }
 
-    public String getName() {
-        return name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getAnimal_id() {
+        return animal_id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setAnimal_id(int animal_id) {
+        this.animal_id = animal_id;
     }
 
     @Override
     public String toString() {
-        return "кличка-" + getName() + " " + "тип-" + getType() + " " + "категория-" + getGroup();
+        return "ID-" + getAnimal_id() + "\tкличка-" + getNickname() + " " + "\t дата рождения-" + getBirthday() + " " + " категория-" + getGroup()+ " " + " тип-" + getType();
     }
 }

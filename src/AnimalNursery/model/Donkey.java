@@ -3,12 +3,12 @@ package AnimalNursery.model;
 public class Donkey extends PackAnimal {
 
     public Donkey() {
-        setType("donkey");
+        setType("Осел");
     }
 
     public Donkey(String name) {
-        setName(name);
-        setType("donkey");
+        setNickname(name);
+        setType("Осел");
 
     }
 
