@@ -2,11 +2,8 @@ package AnimalNursery.view;
 
 import AnimalNursery.Controller.AnimalController;
 import AnimalNursery.model.Animal;
-import AnimalNursery.service.Repository;
 import AnimalNursery.utill.Counter;
-import jdk.jshell.execution.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +11,6 @@ import java.util.Scanner;
 public class ConsoleMenu {
 
     AnimalController animalCtr;
-    Animal animal = new Animal();
     int type_id = 0;
 
     public ConsoleMenu(AnimalController controller) {
@@ -149,18 +145,14 @@ public class ConsoleMenu {
                 System.out.println("\nЖивотного с таким номеров в списке нет, попробуйте снова  \n0 - Возврат в основное меню");
             } else
                 return id;
-
         }
     }
-
-
 
     private int CommadChoiceMenu(Scanner in) {
         Scanner sc = in;
         System.out.println("Список команд для обучения");
         System.out.println(animalCtr.getAllCommands());
         int command;
-
         while (true) {
             System.out.println("Введите id команды из списка, 0 для возврата в основное меню: ");
             command = sc.nextInt();
@@ -169,9 +161,7 @@ public class ConsoleMenu {
             else
                 return command;
         }
-
     }
-
 }
 
 

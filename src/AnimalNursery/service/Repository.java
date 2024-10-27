@@ -19,7 +19,6 @@ public class Repository  implements IRepository <Animal>  {
     private String SQLquery;
     private Statement sqlStr;
     private ResultSet resultSet;
-//    private List<Animal> nursery = new ArrayList<Animal>();
     private List<Command> commandsAll = new ArrayList<Command>();
 
 
@@ -61,7 +60,6 @@ public class Repository  implements IRepository <Animal>  {
             throw new RuntimeException(ex.getMessage());
         }
     }
-
 
     @Override
     public Animal getById(int animal_Id) {

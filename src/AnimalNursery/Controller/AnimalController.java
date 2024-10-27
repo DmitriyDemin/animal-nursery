@@ -2,7 +2,6 @@ package AnimalNursery.Controller;
 
 import AnimalNursery.model.*;
 import AnimalNursery.service.IRepository;
-import AnimalNursery.service.Repository;
 import AnimalNursery.view.ConsoleView;
 
 import java.time.LocalDate;
@@ -80,7 +79,6 @@ public class AnimalController {
         return listAnimalId;
     }
 
-
     public boolean learnСommand(int animal_id, int command_id) {
         String commandName = DB.getCommandNameById(command_id);
 
@@ -143,10 +141,5 @@ public class AnimalController {
         return commans;
 
     }
-
-
-
-
-
 
 }
