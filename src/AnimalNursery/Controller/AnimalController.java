@@ -2,22 +2,23 @@ package AnimalNursery.Controller;
 
 import AnimalNursery.model.*;
 import AnimalNursery.service.IRepository;
+import AnimalNursery.service.Repository;
 import AnimalNursery.view.ConsoleView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalController {
+
     private IRepository<Animal> DB;
-//    private Creator petCreator;
     private Animal animal;
     private final ConsoleView view = new ConsoleView();
     private Validator validator;
 
-    public AnimalController (IRepository<Animal> Repository) {
-        this.DB = Repository;
-//        this.petCreator = new PetCreator();
-//        this.view = new ConsoleView();
+    public AnimalController (IRepository<Animal> repository) {
+        this.DB = repository;
         this.validator = new Validator();
     }
 
@@ -55,58 +56,52 @@ public class AnimalController {
         }
 
     }
-/*
-    public void updatePet(int id) {
 
-        Pet pet = getById(id);
-        String[] data = new String[] { view.getName(), view.getBirthday() };
-
-        validator.validate(data);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate birthday = LocalDate.parse(data[1], formatter);
-        pet.setName(data[0]);
-        pet.setBirthday(birthday);
+    public void getAllAnimal() {
         try {
-            int res = petRepository.update(pet);
-            view.showMessage(String.format("%d запись изменена \n", res));
-        } catch (RuntimeException e) {
-            view.showMessage(e.getMessage());
-        }
-
-    }
-
-    public void getAllPet() {
-        try {
-            view.printAll(petRepository.getAll(), Pet.class);
+            view.printAll(DB.getAll(), Animal.class);
         } catch (RuntimeException e) {
             view.showMessage(e.getMessage());
         }
     }
 
-    public boolean trainPet(int id, String command) {
-        try {
+    public List<Integer> getAllAnimalId() {
+        List<Integer> listAnimalId = new ArrayList<>();
 
-            if (((PetRepository) petRepository).getCommandsById(id, 1).contains(command))
-                view.showMessage("это мы уже умеем");
-            else {
-                if (!((PetRepository) petRepository).getCommandsById(id, 2).contains(command))
-                    view.showMessage("невыполнимая команда");
-                else {
-                    ((PetRepository) petRepository).train(id, command);
-                    view.showMessage("команда разучена\n");
-                    return true;
-                }
+        try {
+            List<Animal> list = DB.getAll();
+            for (Animal item: list){
+                listAnimalId.add(item.getAnimal_id());
             }
+
+        } catch (RuntimeException e) {
+            view.showMessage(e.getMessage());
+        }
+        return listAnimalId;
+    }
+
+
+    public boolean learnСommand(int animal_id, int command_id) {
+        String commandName = DB.getCommandNameById(command_id);
+
+        try {
+            if (DB.getCommandsByID(animal_id).contains(command_id))
+                view.showMessage("команде " + "'"+commandName+"'" + " животное уже обучено");
+            else {
+                DB.learnСommand(animal_id, command_id);
+                view.showMessage("командa " + "'"+commandName+"'" + " изучена");
+            }
+            return true;
+
         } catch (RuntimeException e) {
             view.showMessage(e.getMessage());
         }
         return false;
     }
 
-    public Pet getById(int id) {
+    public Animal getById(int animal_id) {
         try {
-            return petRepository.getById(id);
+            return DB.getById(animal_id);
         } catch (RuntimeException e) {
             view.showMessage(e.getMessage());
         }
@@ -115,18 +110,43 @@ public class AnimalController {
 
     public void delete(int id) {
         try {
-            petRepository.delete(id);
+            DB.delete(id);
             view.showMessage("запись удалена");
         } catch (RuntimeException e) {
             view.showMessage(e.getMessage());
         }
     }
 
-    public void getCommands(int id) {
+
+  public void getCommandsByID (int animal_id) {
+        List<String> commandsSrt = new ArrayList<>();
+
         try {
-            view.printAll(((PetRepository) petRepository).getCommandsById(id, 1), String.class);
+            List<Integer> commans = DB.getCommandsByID(animal_id);
+            for (int i = 0; i <commans.size(); i++){
+                commandsSrt.add(DB.getCommandNameById(commans.get(i)));
+            }
+                    view.printAll(commandsSrt, String.class);
+
         } catch (RuntimeException e) {
             view.showMessage(e.getMessage());
         }
-    }*/
+    }
+
+    public List<Command> getAllCommands () {
+        List<Command> commans = new ArrayList<>();
+        try {
+            commans = DB.getAllCommands();
+        } catch (RuntimeException e) {
+            view.showMessage(e.getMessage());
+        }
+        return commans;
+
+    }
+
+
+
+
+
+
 }

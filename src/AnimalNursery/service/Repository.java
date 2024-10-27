@@ -13,14 +13,14 @@ import java.time.LocalDate;
 import java.util.Properties;
 
 
-public class Repository implements IRepository <Animal>  {
+public class Repository  implements IRepository <Animal>  {
 
 
     private String SQLquery;
     private Statement sqlStr;
     private ResultSet resultSet;
-    private List<Animal> nursery = new ArrayList<Animal>();
-    private List<Command> commandsAll = new ArrayList<>();
+//    private List<Animal> nursery = new ArrayList<Animal>();
+    private List<Command> commandsAll = new ArrayList<Command>();
 
 
 
@@ -30,12 +30,13 @@ public class Repository implements IRepository <Animal>  {
     @Override
     public List<Animal> getAll() {
         try {
-
+            List<Animal> nursery = new ArrayList<Animal>();
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection dbConnection = getConnection()) {
 
                 sqlStr = dbConnection.createStatement();
-                SQLquery = "SELECT A.animal_id, A.nickname, A.birthday, B.name FROM animals_nursery AS A INNER JOIN animals_type AS B ON A.animal_type = B.id ORDER BY A.animal_id";
+                SQLquery = "SELECT A.animal_id, A.nickname, A.birthday, B.name, C.group_name FROM animals_nursery AS A INNER JOIN animals_type AS B ON A.animal_type = B.id INNER JOIN animals_group AS C ON B.group_id = C.group_id  ORDER BY A.animal_id";
+//              SQLquery = "SELECT A.animal_id, A.nickname, A.birthday, B.name FROM animals_nursery AS A INNER JOIN animals_type AS B ON A.animal_type = B.id ORDER BY A.animal_id";
                 resultSet = sqlStr.executeQuery(SQLquery);
                 while (resultSet.next()) {
 
@@ -43,11 +44,13 @@ public class Repository implements IRepository <Animal>  {
                     String name = resultSet.getString(2);
                     LocalDate birthday = resultSet.getDate(3).toLocalDate();
                     String type_id = resultSet.getString(4);
+                    String group_id = resultSet.getString(5);
                     Animal animal = new Animal();
                     animal.setAnimal_id(id);
                     animal.setNickname(name);
                     animal.setBirthday(birthday);
                     animal.setType(type_id);
+                    animal.setGroup(group_id);
 
                     nursery.add(animal);
                 }
@@ -68,7 +71,7 @@ public class Repository implements IRepository <Animal>  {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection dbConnection = getConnection()) {
 
-                SQLquery = "SELECT A.animal_id, A.nickname, A.birthday, B.name FROM animals_nursery AS A INNER JOIN animals_type AS B ON A.animal_type = B.id WHERE A.animal_id = ?";
+                SQLquery = "SELECT A.animal_id, A.nickname, A.birthday, B.name, C.group_name FROM animals_nursery AS A INNER JOIN animals_type AS B ON A.animal_type = B.id INNER JOIN animals_group AS C ON B.group_id = C.group_id  WHERE A.animal_id = ?";
                 PreparedStatement prepStr = dbConnection.prepareStatement(SQLquery);
                 prepStr.setInt(1, animal_Id);
                 resultSet = prepStr.executeQuery();
@@ -79,11 +82,12 @@ public class Repository implements IRepository <Animal>  {
                     String name = resultSet.getString(2);
                     LocalDate birthday = resultSet.getDate(3).toLocalDate();
                     String type_id = resultSet.getString(4);
-//                    Animal animal = new Animal();
+                    String group_id = resultSet.getString(5);
                     animal.setAnimal_id(id);
                     animal.setNickname(name);
                     animal.setBirthday(birthday);
                     animal.setType(type_id);
+                    animal.setGroup(group_id);
                 }
                 return animal;
             }
@@ -118,7 +122,7 @@ public class Repository implements IRepository <Animal>  {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection dbConnection = getConnection()) {
-                SQLquery = "DELETE FROM animals_nursery WHERE Id = ?";
+                SQLquery = "DELETE FROM animals_nursery WHERE animal_id = ?";
                 PreparedStatement prepSt = dbConnection.prepareStatement(SQLquery);
                 prepSt.setInt(1,id);
                 prepSt.executeUpdate();
@@ -128,6 +132,7 @@ public class Repository implements IRepository <Animal>  {
         }
     }
 
+    @Override
     public List<Command> getAllCommands() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -156,6 +161,34 @@ public class Repository implements IRepository <Animal>  {
         }
     }
 
+    @Override
+    public String getCommandNameById(int command_id) {
+        String CommandName = new String();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection dbConnection = getConnection()) {
+
+                sqlStr = dbConnection.createStatement();
+                SQLquery = "SELECT title FROM commands WHERE command_id = ?";
+                PreparedStatement prepStr = dbConnection.prepareStatement(SQLquery);
+                prepStr.setInt(1, command_id);
+                resultSet = prepStr.executeQuery();
+
+                if (resultSet.next()) {
+
+                    CommandName = resultSet.getString(1);
+                }
+            }
+            return CommandName;
+
+        } catch (ClassNotFoundException |IOException| SQLException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+
+
+    @Override
     public List<Integer> getCommandsByID (int animal_id){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -180,19 +213,23 @@ public class Repository implements IRepository <Animal>  {
 
     }
 
+    @Override
+    public void learnСommand (int animal_id, int command_id){
 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection dbConnection = getConnection()) {
 
-
-
-
-
-
-
-
-
-
-
-
+                SQLquery = "INSERT INTO skills (animal_id , command_id ) VALUES (?, ?)";
+                PreparedStatement prepSt = dbConnection.prepareStatement(SQLquery);
+                prepSt.setInt(1, animal_id);
+                prepSt.setInt(2, command_id);
+                prepSt.executeUpdate();
+            }
+        } catch (ClassNotFoundException |IOException| SQLException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
 
 
 
@@ -210,9 +247,3 @@ public class Repository implements IRepository <Animal>  {
     }
 }
 
-
-//    @Override
-//    public int update(Animal item) {
-//        return 0;
-//    }
-//

@@ -1,4 +1,4 @@
-package AnimalNursery.util;
+package AnimalNursery.utill;
 /**
  * Счетчик для работы внутри блока try_with_resources
  */
